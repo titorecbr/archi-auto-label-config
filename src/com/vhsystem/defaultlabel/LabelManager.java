@@ -91,18 +91,39 @@ import com.archimatetool.model.ISystemSoftware;
 import com.archimatetool.model.IApplicationEvent;
 
 /**
- * Gerenciador de labels padrão
+ * Gerenciador de labels padrão - Singleton com auto-inicialização
  */
 public class LabelManager {
     
     private static final String CONFIG_FILE = "default_labels.properties";
+    private static LabelManager instance;
     
     private Map<Class<?>, String> defaultLabels;
     private File configFile;
+    private boolean initialized = false;
     
-    public LabelManager() {
+    // Inicialização estática - garante que seja carregado assim que a classe for referenciada
+    static {
+        System.out.println("[LabelManager] ========================================");
+        System.out.println("[LabelManager] 🚀 Classe LabelManager carregada pela JVM!");
+        System.out.println("[LabelManager] Inicializando singleton...");
+        instance = new LabelManager();
+        System.out.println("[LabelManager] ✓ Singleton criado!");
+        System.out.println("[LabelManager] ========================================");
+    }
+    
+    /**
+     * Obtém a instância singleton
+     */
+    public static LabelManager getInstance() {
+        return instance;
+    }
+    
+    private LabelManager() {
+        System.out.println("[LabelManager] Construtor privado chamado");
         defaultLabels = new HashMap<>();
         loadConfiguration();
+        registerModelListener();
     }
     
     /**
@@ -336,6 +357,109 @@ public class LabelManager {
         }
         // Adiciona espaços antes de letras maiúsculas
         return simpleName.replaceAll("([A-Z])", " $1").trim();
+    }
+    
+    /**
+     * Registra listener para eventos do modelo
+     * Copiado do DefaultLabelPlugin para funcionar sem depender do plugin ser ativado
+     */
+    private void registerModelListener() {
+        System.out.println("[LabelManager] Registrando listener de eventos do modelo...");
+        
+        try {
+            java.beans.PropertyChangeListener modelListener = new java.beans.PropertyChangeListener() {
+                @Override
+                public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                    // Escuta eventos ECORE (criação/modificação de objetos)
+                    if (com.archimatetool.editor.model.IEditorModelManager.PROPERTY_ECORE_EVENT.equals(evt.getPropertyName())) {
+                        Object newValue = evt.getNewValue();
+                        if (newValue instanceof org.eclipse.emf.common.notify.Notification) {
+                            handleNotification((org.eclipse.emf.common.notify.Notification) newValue);
+                        }
+                    }
+                }
+            };
+            
+            com.archimatetool.editor.model.IEditorModelManager.INSTANCE.addPropertyChangeListener(modelListener);
+            System.out.println("[LabelManager] ✓ Listener registrado com sucesso!");
+            initialized = true;
+        } catch (Exception e) {
+            System.err.println("[LabelManager] ❌ ERRO ao registrar listener: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Processa notificações de mudanças no modelo
+     * Copiado do DefaultLabelPlugin
+     */
+    private void handleNotification(org.eclipse.emf.common.notify.Notification notification) {
+        int eventType = notification.getEventType();
+        Object notifier = notification.getNotifier();
+        Object newValue = notification.getNewValue();
+        
+        // Verifica se o newValue é um DiagramModelArchimateObject
+        if (newValue instanceof com.archimatetool.model.IDiagramModelArchimateObject) {
+            System.out.println("[LabelManager] ✓ Objeto de diagrama detectado via newValue!");
+            com.archimatetool.model.IDiagramModelArchimateObject diagramObject = 
+                (com.archimatetool.model.IDiagramModelArchimateObject) newValue;
+            applyDefaultLabelToDiagramObject(diagramObject);
+        }
+        // Também verifica o notifier
+        else if (notifier instanceof com.archimatetool.model.IDiagramModelArchimateObject) {
+            com.archimatetool.model.IDiagramModelArchimateObject diagramObject = 
+                (com.archimatetool.model.IDiagramModelArchimateObject) notifier;
+            
+            // Verifica se é um evento de SET no elemento ArchiMate
+            if (eventType == org.eclipse.emf.common.notify.Notification.SET && 
+                newValue instanceof com.archimatetool.model.IArchimateElement) {
+                System.out.println("[LabelManager] ✓ Objeto de diagrama detectado via notifier (SET element)!");
+                applyDefaultLabelToDiagramObject(diagramObject);
+            }
+        }
+    }
+    
+    /**
+     * Aplica label padrão no objeto do diagrama
+     */
+    private void applyDefaultLabelToDiagramObject(final com.archimatetool.model.IDiagramModelArchimateObject diagramObject) {
+        if (diagramObject == null) {
+            return;
+        }
+        
+        com.archimatetool.model.IArchimateElement element = diagramObject.getArchimateElement();
+        if (element == null) {
+            System.out.println("[LabelManager] Objeto de diagrama sem elemento associado!");
+            return;
+        }
+        
+        final String defaultLabel = getDefaultLabel(element.getClass());
+        
+        if (defaultLabel == null || defaultLabel.trim().isEmpty()) {
+            return;
+        }
+        
+        System.out.println("[LabelManager] ✓ Aplicando label: '" + defaultLabel + "'");
+        
+        // Aplica o label na thread do SWT
+        org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getDefault();
+        if (display != null && !display.isDisposed()) {
+            display.asyncExec(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (diagramObject instanceof com.archimatetool.model.IFeatures) {
+                            com.archimatetool.model.IFeatures featuresObject = 
+                                (com.archimatetool.model.IFeatures) diagramObject;
+                            featuresObject.getFeatures().putString("labelExpression", defaultLabel);
+                            System.out.println("[LabelManager] ✅ Label aplicado!");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("[LabelManager] ❌ ERRO ao aplicar label: " + e.getMessage());
+                    }
+                }
+            });
+        }
     }
 }
 

@@ -41,5 +41,13 @@
          </menu>
       </menuContribution>
    </extension>
+   
+   <!-- Força inicialização do plugin na startup do Archi -->
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="com.vhsystem.defaultlabel.StartupHandler">
+      </startup>
+   </extension>
 </plugin>
 
