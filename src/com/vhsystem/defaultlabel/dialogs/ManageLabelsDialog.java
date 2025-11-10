@@ -3,11 +3,13 @@ package com.vhsystem.defaultlabel.dialogs;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -26,7 +28,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.archimatetool.editor.model.IEditorModelManager;
 import com.archimatetool.model.IArchimateElement;
+import com.archimatetool.model.IArchimateModel;
+import com.archimatetool.model.IDiagramModel;
+import com.archimatetool.model.IDiagramModelArchimateObject;
+import com.archimatetool.model.IFeatures;
+import com.archimatetool.model.IFolder;
 import com.vhsystem.defaultlabel.LabelManager;
 
 /**
@@ -37,10 +45,12 @@ public class ManageLabelsDialog extends Dialog {
     private LabelManager labelManager;
     private TableViewer viewer;
     private List<LabelEntry> entries;
+    private Map<Class<?>, String> originalLabels; // Store original values to detect changes
     
     public ManageLabelsDialog(Shell parentShell, LabelManager labelManager) {
         super(parentShell);
         this.labelManager = labelManager;
+        this.originalLabels = new HashMap<>();
         setShellStyle(SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
     }
     
@@ -146,6 +156,8 @@ public class ManageLabelsDialog extends Dialog {
         for (Class<? extends IArchimateElement> clazz : elementClasses) {
             String label = allLabels.get(clazz);
             entries.add(new LabelEntry(clazz, label));
+            // Store original value for comparison
+            originalLabels.put(clazz, label);
         }
         
         // Sort by type name
@@ -247,6 +259,149 @@ public class ManageLabelsDialog extends Dialog {
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+    }
+    
+    @Override
+    protected void okPressed() {
+        // Detect if any labels have changed
+        boolean hasChanges = detectChanges();
+        
+        if (hasChanges) {
+            // Ask user for confirmation
+            boolean confirm = MessageDialog.openQuestion(
+                getShell(), 
+                "Update Existing Elements?", 
+                "Labels have been modified. Do you want to update all existing elements to match the new label configurations?\n\n" +
+                "This will process ALL diagrams in ALL models currently open in your workspace,\n" +
+                "updating all diagram objects of the modified types."
+            );
+            
+            if (confirm) {
+                updateAllElementsInModel();
+            }
+        }
+        
+        super.okPressed();
+    }
+    
+    /**
+     * Detects if any labels have been changed
+     */
+    private boolean detectChanges() {
+        for (LabelEntry entry : entries) {
+            String originalLabel = originalLabels.get(entry.getElementClass());
+            String currentLabel = entry.getLabel();
+            
+            // Compare considering null values
+            if (originalLabel == null && currentLabel != null) {
+                return true;
+            }
+            if (originalLabel != null && !originalLabel.equals(currentLabel)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Updates all elements in all models currently loaded in the workspace
+     * Processes ALL diagrams in each model, not just visually open ones
+     */
+    private void updateAllElementsInModel() {
+        System.out.println("[ManageLabelsDialog] Starting bulk update of all elements in workspace...");
+        
+        int updatedCount = 0;
+        int diagramCount = 0;
+        
+        // Get all models loaded in the workspace
+        List<IArchimateModel> models = IEditorModelManager.INSTANCE.getModels();
+        
+        System.out.println("[ManageLabelsDialog] Found " + models.size() + " model(s) in workspace");
+        
+        for (IArchimateModel model : models) {
+            System.out.println("[ManageLabelsDialog] Processing model: " + model.getName());
+            
+            // Process ALL diagrams in the model (not just visually open ones)
+            List<IDiagramModel> diagrams = model.getDiagramModels();
+            System.out.println("[ManageLabelsDialog]   Found " + diagrams.size() + " diagram(s) in this model");
+            
+            for (IDiagramModel diagram : diagrams) {
+                System.out.println("[ManageLabelsDialog]   Processing diagram: " + diagram.getName());
+                int count = processDiagram(diagram);
+                if (count > 0) {
+                    updatedCount += count;
+                    diagramCount++;
+                }
+            }
+        }
+        
+        System.out.println("[ManageLabelsDialog] ✅ Bulk update complete!");
+        System.out.println("[ManageLabelsDialog]   Updated " + updatedCount + " element(s) in " + diagramCount + " diagram(s)");
+        
+        // Show confirmation message
+        MessageDialog.openInformation(
+            getShell(),
+            "Update Complete",
+            "Successfully updated " + updatedCount + " element(s) in " + diagramCount + " diagram(s).\n\n" +
+            "All diagrams in " + models.size() + " model(s) were processed."
+        );
+    }
+    
+    /**
+     * Processes a diagram and all its children recursively
+     */
+    private int processDiagram(IDiagramModel diagram) {
+        int count = 0;
+        
+        for (Object child : diagram.getChildren()) {
+            count += processElement(child);
+        }
+        
+        return count;
+    }
+    
+    /**
+     * Processes an element and its children recursively
+     */
+    private int processElement(Object element) {
+        int count = 0;
+        
+        // Check if it's a diagram object representing an ArchiMate element
+        if (element instanceof IDiagramModelArchimateObject) {
+            IDiagramModelArchimateObject diagramObject = (IDiagramModelArchimateObject) element;
+            IArchimateElement archimateElement = diagramObject.getArchimateElement();
+            
+            if (archimateElement != null) {
+                // Get the configured label for this element type
+                String configuredLabel = labelManager.getDefaultLabel(archimateElement.getClass());
+                
+                if (configuredLabel != null && !configuredLabel.trim().isEmpty()) {
+                    // Apply the label
+                    if (diagramObject instanceof IFeatures) {
+                        IFeatures featuresObject = (IFeatures) diagramObject;
+                        featuresObject.getFeatures().putString("labelExpression", configuredLabel);
+                        count++;
+                        System.out.println("[ManageLabelsDialog] ✓ Updated: " + 
+                            archimateElement.getClass().getSimpleName() + " - " + archimateElement.getName());
+                    }
+                }
+            }
+            
+            // Process children recursively
+            for (Object child : diagramObject.getChildren()) {
+                count += processElement(child);
+            }
+        }
+        // Handle other container types if needed
+        else if (element instanceof com.archimatetool.model.IDiagramModelContainer) {
+            com.archimatetool.model.IDiagramModelContainer container = 
+                (com.archimatetool.model.IDiagramModelContainer) element;
+            for (Object child : container.getChildren()) {
+                count += processElement(child);
+            }
+        }
+        
+        return count;
     }
     
     @Override
