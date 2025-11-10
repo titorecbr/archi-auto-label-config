@@ -1,0 +1,40 @@
+================================================================================
+EXPORTED PLUGIN LOCATION
+================================================================================
+
+FULL PATH:
+----------
+/home/victor/Projetos/VH System/archi-auto-label-config/export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+
+CURRENT STRUCTURE:
+------------------
+com.vhsystem.defaultlabel_1.0.0.qualifier/
+├── META-INF/
+│   └── MANIFEST.MF          ✓ Configured
+├── plugin.xml               ✓ Configured
+├── build.properties         ✓ Configured
+└── com/
+    └── vhsystem/
+        └── defaultlabel/
+            └── (empty - needs compiled Java classes)
+
+STATUS:
+-------
+✓ Configuration files: READY
+✗ Compiled Java classes: MISSING (needs Eclipse)
+
+NEXT STEP:
+----------
+You need to compile the Java classes in Eclipse IDE.
+
+See: INSTALL.md in docs/ for complete instructions.
+
+OR use the path above to export from Eclipse:
+1. Import project into Eclipse
+2. Configure Archi dependencies
+3. Compile: Project → Clean → Build
+4. Export: File → Export → Deployable plug-ins
+5. Use the folder exported by Eclipse to install in Archi
+
+================================================================================
+

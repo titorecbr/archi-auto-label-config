@@ -1,57 +1,59 @@
 ================================================================================
-PLUGIN EXPORTADO - Default Label Plugin para Archi
+EXPORTED PLUGIN - Default Label Plugin for Archi
 ================================================================================
 
-ESTRUTURA CRIADA:
------------------
+STRUCTURE CREATED:
+------------------
 export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
 
-IMPORTANTE: Este plugin ainda precisa ser COMPILADO no Eclipse antes de
-ser instalado no Archi. As classes Java (.class) não foram geradas ainda.
+IMPORTANT: This plugin still needs to be COMPILED in Eclipse before
+being installed in Archi. The Java classes (.class) have not been generated yet.
 
-PRÓXIMOS PASSOS:
-----------------
+NEXT STEPS:
+-----------
 
-OPÇÃO 1: Compilar no Eclipse (RECOMENDADO)
+OPTION 1: Compile in Eclipse (RECOMMENDED)
 -------------------------------------------
-1. Abra o Eclipse IDE
+1. Open Eclipse IDE
 2. File → Import → Existing Projects into Workspace
-   → Selecione: "/home/victor/Projetos/VH System/Archi Plugin"
-3. Configure as dependências do Archi (veja FIND_DEPENDENCIES.md)
+   → Select: "/path/to/archi-auto-label-config"
+3. Configure Archi dependencies (see docs/FIND_DEPENDENCIES.md)
 4. Project → Clean → Build
 5. File → Export → Deployable plug-ins and fragments
-   → Selecione: com.vhsystem.defaultlabel
-   → Escolha: Directory
-   → Escolha uma pasta (ex: ~/archi-plugin-final)
+   → Select: com.vhsystem.defaultlabel
+   → Choose: Directory
+   → Choose a folder (e.g., ~/archi-plugin-final)
    → Finish
-6. Use a pasta exportada pelo Eclipse para instalar no Archi
+6. Use the folder exported by Eclipse to install in Archi
 
-OPÇÃO 2: Usar esta estrutura diretamente (AVANÇADO)
----------------------------------------------------
-Se você já tem as classes compiladas (.class), copie-as para:
+OPTION 2: Use this structure directly (ADVANCED)
+-------------------------------------------------
+If you already have the compiled classes (.class), copy them to:
 export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/com/vhsystem/defaultlabel/
 
-Estrutura necessária:
+Required structure:
 - DefaultLabelPlugin.class
 - LabelManager.class
+- StartupHandler.class
 - dialogs/ManageLabelsDialog.class
 - handlers/ManageLabelsHandler.class
 
-INSTALAÇÃO NO ARCHI:
---------------------
-Após compilar no Eclipse:
+INSTALLATION IN ARCHI:
+----------------------
+After compiling in Eclipse:
 
-1. Localize a pasta de plugins do Archi:
-   Linux:   ~/.archi/plugins/
-   Windows: C:\Users\<usuario>\.archi\plugins\
-   macOS:    ~/Library/Application Support/Archi/plugins/
+1. Locate Archi's plugins folder:
+   Linux:   ~/.archi/dropins/
+   Windows: C:\Users\<username>\.archi\dropins\
+   macOS:   ~/Library/Application Support/Archi/dropins/
 
-2. Copie a pasta completa:
+2. Copy the complete folder:
    com.vhsystem.defaultlabel_1.0.0.qualifier/
    
-   Para dentro de ~/.archi/plugins/
+   Into ~/.archi/dropins/
 
-3. Reinicie o Archi
+3. Restart Archi
+
+ALTERNATIVE: Use pre-built JAR from final-plugin/ directory
 
 ================================================================================
-

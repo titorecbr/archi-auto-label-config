@@ -1,160 +1,115 @@
-# Plugin de Labels Padrão para Archi
+# Documentation - Archi Default Label Plugin
 
-Este plugin permite definir labels padrão que serão aplicados automaticamente quando novos elementos são criados no Archi, mantendo um padrão consistente em todo o repositório.
+Welcome to the documentation directory for the Archi Default Label Plugin!
 
-## Funcionalidades
+## 📚 Documentation Index
 
-- **Aplicação automática de labels**: Quando um novo elemento é criado sem label, o plugin aplica automaticamente o label padrão configurado para aquele tipo de elemento.
-- **Gerenciamento de labels**: Interface gráfica para configurar e gerenciar os labels padrão de todos os tipos de elementos ArchiMate.
-- **Persistência**: As configurações são salvas automaticamente e persistem entre sessões do Archi.
+### Getting Started
 
-## Estrutura do Plugin
+| Document | Description | For |
+|----------|-------------|-----|
+| [QUICK_START.md](QUICK_START.md) | 5-minute setup guide | New users |
+| [INSTALL.md](INSTALL.md) | Complete installation instructions | All users |
+| [BULK_UPDATE_FEATURE.md](BULK_UPDATE_FEATURE.md) | Bulk update feature documentation | Advanced users |
+
+### Developer Guides
+
+| Document | Description | For |
+|----------|-------------|-----|
+| [BUILD_GUIDE.md](BUILD_GUIDE.md) | Build from source instructions | Developers |
+| [FIND_DEPENDENCIES.md](FIND_DEPENDENCIES.md) | Locating Archi dependencies | Developers |
+| [EXPORT_INSTRUCTIONS.txt](EXPORT_INSTRUCTIONS.txt) | Eclipse export procedures | Developers |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines | Contributors |
+
+### Project Information
+
+| Document | Description | For |
+|----------|-------------|-----|
+| [CHANGELOG.md](CHANGELOG.md) | Version history and releases | All users |
+| [LICENSE](LICENSE) | MIT License | All users |
+| [DISTRIBUTION_GUIDE.md](DISTRIBUTION_GUIDE.md) | Distribution instructions | Maintainers |
+| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Complete project overview | All users |
+| [DOCUMENTATION_COMPLETE.md](DOCUMENTATION_COMPLETE.md) | Documentation conversion notes | LLMs/Developers |
+
+## 🎯 Quick Navigation
+
+### I want to...
+
+**...get started quickly**
+→ Start with [QUICK_START.md](QUICK_START.md)
+
+**...install the plugin**
+→ Read [INSTALL.md](INSTALL.md)
+
+**...understand bulk updates**
+→ Check [BULK_UPDATE_FEATURE.md](BULK_UPDATE_FEATURE.md)
+
+**...build from source**
+→ Follow [BUILD_GUIDE.md](BUILD_GUIDE.md)
+
+**...contribute to the project**
+→ See [CONTRIBUTING.md](CONTRIBUTING.md)
+
+**...check the license**
+→ Read [LICENSE](LICENSE)
+
+**...see what's new**
+→ Check [CHANGELOG.md](CHANGELOG.md)
+
+**...understand the architecture**
+→ Read [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
+
+## 📖 Documentation Structure
 
 ```
-Archi Plugin/
-├── META-INF/
-│   └── MANIFEST.MF          # Manifesto do plugin Eclipse
-├── src/
-│   └── com/vhsystem/defaultlabel/
-│       ├── DefaultLabelPlugin.java    # Classe principal do plugin
-│       ├── LabelManager.java          # Gerenciador de labels padrão
-│       ├── handlers/
-│       │   └── ManageLabelsHandler.java  # Handler do comando de menu
-│       └── dialogs/
-│           └── ManageLabelsDialog.java   # Dialog de gerenciamento
-├── plugin.xml               # Configuração de extensões Eclipse
-├── build.properties         # Propriedades de build
-└── README.md               # Este arquivo
+docs/
+├── README.md (this file)          # Documentation index
+│
+├── User Documentation
+│   ├── QUICK_START.md             # 5-minute guide
+│   ├── INSTALL.md                 # Installation guide
+│   └── BULK_UPDATE_FEATURE.md     # Bulk update docs
+│
+├── Developer Documentation
+│   ├── BUILD_GUIDE.md             # Build instructions
+│   ├── FIND_DEPENDENCIES.md       # Dependency guide
+│   ├── EXPORT_INSTRUCTIONS.txt    # Eclipse export
+│   └── CONTRIBUTING.md            # Contribution guide
+│
+├── Project Information
+│   ├── CHANGELOG.md               # Version history
+│   ├── LICENSE                    # MIT License
+│   ├── DISTRIBUTION_GUIDE.md      # Distribution info
+│   ├── PROJECT_SUMMARY.md         # Project overview
+│   └── DOCUMENTATION_COMPLETE.md  # Conversion notes
+│
+└── images/
+    └── manage-labels-dialog.png   # UI screenshot
 ```
 
-## Como Compilar e Instalar
+## 🌍 Language
 
-### Pré-requisitos
+All documentation is in **English** for worldwide distribution.
 
-- Eclipse IDE for RCP and RAP Developers (ou similar)
-- Archi SDK (disponível no repositório do Archi)
-- Java JDK 11 ou superior
+## 🔄 Updates
 
-### Passos para Compilação
+Documentation is updated with each release. Check [CHANGELOG.md](CHANGELOG.md) for latest changes.
 
-1. **Importar o projeto no Eclipse**:
-   - File → Import → Existing Projects into Workspace
-   - Selecione a pasta do plugin
-   - Certifique-se de que as dependências do Archi estão configuradas
+## 💡 Need Help?
 
-2. **Configurar Build Path**:
-   - Clique com botão direito no projeto → Properties → Java Build Path
-   - Adicione as bibliotecas do Archi:
-     - `com.archimatetool.model`
-     - `com.archimatetool.editor`
-   - Adicione também as bibliotecas do Eclipse:
-     - `org.eclipse.core.runtime`
-     - `org.eclipse.ui`
-     - `org.eclipse.jface`
+- **Users:** Start with [QUICK_START.md](QUICK_START.md)
+- **Developers:** Check [BUILD_GUIDE.md](BUILD_GUIDE.md)
+- **Contributors:** Read [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Issues:** See main [README.md](../README.md) for support info
 
-3. **Compilar o plugin**:
-   - Project → Clean → Build
-   - O plugin será compilado na pasta `bin/`
+## 📊 Documentation Statistics
 
-4. **Exportar como Plugin**:
-   - File → Export → Plug-in Development → Deployable plug-ins and fragments
-   - Selecione o plugin
-   - Escolha "Directory" e especifique uma pasta de destino
-   - Clique em Finish
+- **Total documents:** 14 files
+- **Languages:** English
+- **Last updated:** November 10, 2024
+- **Version:** 1.0.0
 
-### Instalação no Archi
+---
 
-1. **Copiar o plugin**:
-   - Copie a pasta do plugin exportado para a pasta `plugins` do Archi
-   - Localização típica:
-     - Windows: `C:\Users\<usuario>\.archi\plugins\`
-     - Linux: `~/.archi/plugins/`
-     - macOS: `~/Library/Application Support/Archi/plugins/`
-
-2. **Reiniciar o Archi**:
-   - Feche e abra o Archi novamente
-   - O plugin será carregado automaticamente
-
-3. **Verificar instalação**:
-   - No menu principal, você deve ver um novo item "Labels Padrão"
-   - Se não aparecer, verifique os logs do Archi para erros
-
-## Como Usar
-
-### Configurar Labels Padrão
-
-1. Abra o Archi
-2. Vá em **Labels Padrão → Gerenciar Labels Padrão** no menu principal
-3. Uma janela será aberta mostrando todos os tipos de elementos ArchiMate
-4. Para cada tipo de elemento, você pode:
-   - **Editar o label padrão**: Clique duas vezes na célula "Label Padrão" e digite o novo valor
-   - **Remover o label padrão**: Deixe a célula em branco
-5. As alterações são salvas automaticamente ao fechar a janela
-
-### Aplicação Automática
-
-Quando você criar um novo elemento no Archi:
-- Se o elemento não tiver um label definido, o plugin aplicará automaticamente o label padrão configurado
-- Se o elemento já tiver um label, ele não será alterado
-
-## Tipos de Elementos Suportados
-
-O plugin suporta todos os tipos de elementos ArchiMate:
-
-- **Application Layer**: Componente, Colaboração, Interface, Função, Interação, Processo, Serviço
-- **Business Layer**: Ator, Colaboração, Evento, Função, Interação, Interface, Objeto, Processo, Papel, Serviço
-- **Technology Layer**: Artefato, Colaboração, Dispositivo, Evento, Função, Interação, Interface, Rede, Nó, Processo, Serviço
-- **Physical Layer**: Artefato, Localização, Caminho, Equipamento, Instalação, Material
-- **Data Layer**: Objeto de Dados
-- **Relationships**: Acesso, Agregação, Atribuição, Associação, Composição, Fluxo, Influência, Realização, Serviço, Especialização, Disparo
-- **Outros**: Junção, Agrupamento, Localização, Nota, Limite
-
-## Configuração Avançada
-
-As configurações são armazenadas em um arquivo `default_labels.properties` na pasta de estado do plugin. Este arquivo pode ser editado manualmente se necessário, mas é recomendado usar a interface gráfica.
-
-## Solução de Problemas
-
-### Plugin não aparece no menu
-
-- Verifique se o plugin foi copiado para a pasta correta
-- Verifique os logs do Archi (Help → Show Log)
-- Certifique-se de que todas as dependências estão disponíveis
-
-### Labels não são aplicados automaticamente
-
-- Verifique se há labels padrão configurados para os tipos de elementos que você está criando
-- Certifique-se de que os elementos estão sendo criados sem label inicial
-- Verifique os logs para erros
-
-### Erros de compilação
-
-- Verifique se todas as dependências do Archi estão no classpath
-- Certifique-se de estar usando a versão correta do Java (JDK 11+)
-- Verifique se a versão do Archi SDK é compatível
-
-## Desenvolvimento
-
-### Estrutura de Classes
-
-- **DefaultLabelPlugin**: Classe principal que inicializa o plugin e registra listeners
-- **LabelManager**: Gerencia o armazenamento e recuperação de labels padrão
-- **ManageLabelsDialog**: Interface gráfica para gerenciar labels
-- **ManageLabelsHandler**: Handler do comando de menu
-
-### Extensibilidade
-
-O plugin pode ser estendido para:
-- Adicionar validação de labels
-- Suportar templates de labels mais complexos
-- Adicionar histórico de mudanças
-- Exportar/importar configurações
-
-## Licença
-
-Este plugin foi desenvolvido para uso interno. Consulte a licença do Archi para informações sobre desenvolvimento de plugins.
-
-## Suporte
-
-Para problemas ou sugestões, consulte a documentação do Archi ou a comunidade de desenvolvedores.
+Return to [Main README](../README.md)
 

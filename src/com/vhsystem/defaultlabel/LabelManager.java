@@ -251,7 +251,7 @@ public class LabelManager {
         defaultLabels.put(IApplicationService.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IApplicationEvent.class, "<<${specialization}>>\n${name}");
         
-        // Business Layer (10 elementos)
+        // Business Layer (10 elements)
         defaultLabels.put(IBusinessActor.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IBusinessCollaboration.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IBusinessEvent.class, "<<${specialization}>>\n${name}");
@@ -263,7 +263,7 @@ public class LabelManager {
         defaultLabels.put(IBusinessRole.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IBusinessService.class, "<<${specialization}>>\n${name}");
         
-        // Technology Layer (14 elementos)
+        // Technology Layer (14 elements)
         defaultLabels.put(IArtifact.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(ITechnologyCollaboration.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IDevice.class, "<<${specialization}>>\n${name}");
@@ -279,17 +279,17 @@ public class LabelManager {
         defaultLabels.put(ITechnologyService.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(ISystemSoftware.class, "<<${specialization}>>\n${name}");
         
-        // Physical Layer (5 elementos)
+        // Physical Layer (5 elements)
         defaultLabels.put(ILocation.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(com.archimatetool.model.IPath.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IEquipment.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IFacility.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IMaterial.class, "<<${specialization}>>\n${name}");
         
-        // Data Layer (1 elemento)
+        // Data Layer (1 element)
         defaultLabels.put(IDataObject.class, "<<${specialization}>>\n${name}");
         
-        // Relationships (11 elementos) - Geralmente não precisam de label, mas podem ter nome
+        // Relationships (11 elements) - Usually don't need labels, but can have names
         defaultLabels.put(IAccessRelationship.class, "${name}");
         defaultLabels.put(IAggregationRelationship.class, "${name}");
         defaultLabels.put(IAssignmentRelationship.class, "${name}");
@@ -302,19 +302,19 @@ public class LabelManager {
         defaultLabels.put(ISpecializationRelationship.class, "${name}");
         defaultLabels.put(ITriggeringRelationship.class, "${name}");
         
-        // Other Elements (3 elementos)
+        // Other Elements (3 elements)
         defaultLabels.put(IJunction.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IGrouping.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IContract.class, "<<${specialization}>>\n${name}");
         
-        // Strategy Layer (5 elementos)
+        // Strategy Layer (5 elements)
         defaultLabels.put(IResource.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(ICapability.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(ICourseOfAction.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IValueStream.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IProduct.class, "<<${specialization}>>\n${name}");
         
-        // Motivation Layer (11 elementos)
+        // Motivation Layer (11 elements)
         defaultLabels.put(IStakeholder.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IDriver.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IAssessment.class, "<<${specialization}>>\n${name}");
@@ -327,7 +327,7 @@ public class LabelManager {
         defaultLabels.put(IValue.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IRepresentation.class, "<<${specialization}>>\n${name}");
         
-        // Implementation & Migration Layer (5 elementos)
+        // Implementation & Migration Layer (5 elements)
         defaultLabels.put(IWorkPackage.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IDeliverable.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IImplementationEvent.class, "<<${specialization}>>\n${name}");

@@ -105,8 +105,8 @@ When user creates a new "Business Actor":
 
 Include these files in distribution:
 
-1. **README_EN.md** - Complete user documentation
-2. **TRANSLATION_SUMMARY.md** - For developers/contributors
+1. **README.md** - Complete user documentation
+2. **docs/** - All documentation files
 3. **JAR file** - The plugin itself
 
 ## 🔧 For Developers

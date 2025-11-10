@@ -1,88 +1,88 @@
-# Como Encontrar as Dependências do Archi
+# How to Find Archi Dependencies
 
-Para compilar o plugin, você precisa adicionar os JARs do Archi ao Build Path do Eclipse.
+To compile the plugin, you need to add Archi JARs to Eclipse's Build Path.
 
-## Localizações das Dependências
+## Dependency Locations
 
 ### Linux
 
-1. **Se o Archi está instalado via pacote**:
+1. **If Archi is installed via package**:
    ```bash
    /opt/archi/plugins/
-   ou
+   # or
    /usr/share/archi/plugins/
    ```
 
-2. **Se o Archi está na pasta home**:
+2. **If Archi is in home folder**:
    ```bash
    ~/.archi/plugins/
    ```
 
-3. **Se você baixou o Archi**:
+3. **If you downloaded Archi**:
    ```bash
    ~/Downloads/archi/plugins/
-   ou onde você descompactou
+   # or wherever you extracted it
    ```
 
 ### Windows
 
-1. **Instalação padrão**:
+1. **Standard installation**:
    ```
    C:\Program Files\Archi\plugins\
    ```
 
-2. **Pasta do usuário**:
+2. **User folder**:
    ```
-   C:\Users\<seu-usuario>\.archi\plugins\
+   C:\Users\<username>\.archi\plugins\
    ```
 
-3. **Se você baixou o Archi**:
+3. **If you downloaded Archi**:
    ```
    C:\Archi\plugins\
-   ou onde você descompactou
+   # or wherever you extracted it
    ```
 
 ### macOS
 
-1. **Aplicativo**:
+1. **Application**:
    ```
    /Applications/Archi.app/Contents/Eclipse/plugins/
    ```
 
-2. **Pasta do usuário**:
+2. **User folder**:
    ```
    ~/Library/Application Support/Archi/plugins/
    ```
 
-## JARs Necessários
+## Required JARs
 
-Procure por estes arquivos (os números de versão podem variar):
+Look for these files (version numbers may vary):
 
-### Obrigatórios:
-- `com.archimatetool.model_*.jar` (ex: `com.archimatetool.model_5.0.0.jar`)
-- `com.archimatetool.editor_*.jar` (ex: `com.archimatetool.editor_5.0.0.jar`)
+### Mandatory:
+- `com.archimatetool.model_*.jar` (e.g., `com.archimatetool.model_5.0.0.jar`)
+- `com.archimatetool.editor_*.jar` (e.g., `com.archimatetool.editor_5.0.0.jar`)
 
-### Geralmente já disponíveis no Eclipse:
+### Usually already available in Eclipse:
 - `org.eclipse.core.runtime_*.jar`
 - `org.eclipse.ui_*.jar`
 - `org.eclipse.jface_*.jar`
 - `org.eclipse.swt_*.jar`
 
-## Como Adicionar no Eclipse
+## How to Add in Eclipse
 
-1. **No Eclipse, abra o projeto**
-2. **Clique com botão direito → Properties**
+1. **In Eclipse, open the project**
+2. **Right-click → Properties**
 3. **Java Build Path → Libraries**
 4. **Add External JARs...**
-5. **Navegue até a pasta de plugins do Archi**
-6. **Selecione os JARs necessários**:
+5. **Navigate to Archi's plugins folder**
+6. **Select required JARs**:
    - `com.archimatetool.model_*.jar`
    - `com.archimatetool.editor_*.jar`
 7. **Apply and Close**
 
-## Script para Encontrar Automaticamente (Linux/macOS)
+## Script to Find Automatically (Linux/macOS)
 
-Execute no terminal:
+Run in terminal:
 
 ```bash
 # Linux
@@ -92,25 +92,139 @@ find ~ -name "com.archimatetool.model_*.jar" 2>/dev/null | head -1
 find /Applications -name "com.archimatetool.model_*.jar" 2>/dev/null | head -1
 ```
 
-Isso mostrará onde estão os JARs do Archi.
+This will show where the Archi JARs are located.
 
-## Alternativa: Baixar o Archi SDK
+## Alternative: Download Archi SDK
 
-Se você não conseguir encontrar os JARs, você pode:
+If you can't find the JARs, you can:
 
-1. Baixar o Archi completo
-2. Extrair os JARs necessários
-3. Ou usar o Archi SDK se disponível
+1. Download complete Archi
+2. Extract required JARs
+3. Or use Archi SDK if available
 
-## Verificação
+## Verification
 
-Após adicionar as dependências, verifique:
+After adding dependencies, verify:
 
 1. **Project → Clean → Build**
-2. Não deve haver erros de compilação
-3. Na aba "Problems", não deve haver erros relacionados a `com.archimatetool.*`
+2. There should be no compilation errors
+3. In "Problems" tab, no errors related to `com.archimatetool.*`
 
-## Dica
+## Tip
 
-Se você já tem o Archi instalado e funcionando, os JARs estão em algum lugar do seu sistema. Use o comando `find` acima para localizá-los.
+If you already have Archi installed and working, the JARs are somewhere on your system. Use the `find` command above to locate them.
 
+## Dependency Details
+
+### com.archimatetool.model
+
+Provides:
+- Core ArchiMate model interfaces
+- Element type definitions (IBusinessActor, IApplicationComponent, etc.)
+- Model structure (IArchimateModel, IFolder, etc.)
+- Relationship types
+
+**Required for:** All core plugin functionality
+
+### com.archimatetool.editor
+
+Provides:
+- Editor model manager (IEditorModelManager)
+- Diagram object interfaces (IDiagramModelArchimateObject)
+- Property event notifications
+- UI integration points
+
+**Required for:** Event listening, element creation detection, diagram manipulation
+
+### Eclipse Platform JARs
+
+**org.eclipse.core.runtime:**
+- Plugin lifecycle management
+- Preferences API
+- Platform logging
+
+**org.eclipse.ui:**
+- Menu contributions
+- Command framework
+- Handlers
+
+**org.eclipse.jface:**
+- Dialog framework
+- Table viewer
+- UI components
+
+**org.eclipse.swt:**
+- Native widgets
+- Display management
+- Event handling
+
+## Common Issues
+
+### "Cannot find com.archimatetool.model"
+
+**Solution:** 
+1. Locate Archi installation directory
+2. Find plugins subfolder
+3. Add model JAR to Build Path
+
+### "Wrong class file version"
+
+**Solution:**
+- Ensure Java 11+ is installed
+- Update Eclipse to recent version
+- Verify Archi version matches plugin requirements
+
+### "SWT not found"
+
+**Solution:**
+- Usually available in Eclipse automatically
+- If missing, add from Eclipse installation:
+  `<eclipse-dir>/plugins/org.eclipse.swt_*.jar`
+
+## Automated Dependency Resolution
+
+The build script `scripts/build_final.sh` can automatically:
+- Locate Archi installation
+- Find required JARs
+- Set up classpath
+- Compile sources
+
+Usage:
+```bash
+bash scripts/build_final.sh /path/to/archi
+```
+
+## For Distribution
+
+When distributing the plugin, you **do not** need to include Archi JARs. The plugin uses OSGi dependency resolution at runtime, automatically finding required bundles from the host Archi installation.
+
+## Development Tips
+
+### Target Platform
+
+For Eclipse PDE development, set up a target platform:
+1. Window → Preferences → Plug-in Development → Target Platform
+2. Add → Directory → Select Archi installation folder
+3. This makes all Archi bundles available
+
+### Source Attachments
+
+To view Archi source code while debugging:
+1. Right-click JAR in Build Path
+2. Properties → Java Source Attachment
+3. Point to Archi source (if available)
+
+## Related Documentation
+
+- [BUILD_GUIDE.md](BUILD_GUIDE.md) - Complete build instructions
+- [INSTALL.md](INSTALL.md) - Installation guide
+- [EXPORT_INSTRUCTIONS.txt](EXPORT_INSTRUCTIONS.txt) - Eclipse export steps
+- [QUICK_START.md](QUICK_START.md) - Quick start guide
+
+## Support
+
+If you can't locate dependencies:
+1. Check Archi installation is complete
+2. Try automated build script
+3. Consult Eclipse PDE documentation
+4. Check Archi plugin development guides

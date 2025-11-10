@@ -15,11 +15,10 @@ When working with large ArchiMate models in Archi, you often want elements to di
 ## ✨ Features
 
 - **🔄 Automatic Label Application**: Automatically applies pre-configured label expressions when new elements are added to diagrams
+- **⚡ Bulk Update**: Update ALL existing elements in your models when you change label configurations
 - **⚙️ Configurable per Element Type**: Set different default labels for all 73 ArchiMate 3.x element types
-- **🎨 User-Friendly Interface**: Easy-to-use dialog for managing default labels
+- **🎨 User-Friendly Interface**: Easy-to-use dialog for managing default labels with inline editing
 - **💾 Persistent Configuration**: Settings are automatically saved and persist between Archi sessions
-- **🚀 Startup Initialization**: Plugin activates automatically when Archi starts
-- **🌍 Internationalized**: Full English support for worldwide usage
 
 ## 📦 Installation
 
@@ -60,6 +59,24 @@ cp -r final-plugin/com.vhsystem.defaultlabel_1.0.0.qualifier ~/.archi/dropins/
 6. Click outside the cell to save
 7. Click **OK** to close the dialog
 
+### Visual Guide
+
+The **Manage Default Labels** dialog provides an intuitive interface to configure label expressions for each ArchiMate element type:
+
+![Manage Default Labels Dialog](docs/images/manage-labels-dialog.png)
+
+**Key features of the interface:**
+- **Element Type column**: Lists all 73 ArchiMate element types organized by layer
+- **Default Label column**: Shows and allows editing of the label expression for each type
+- **Editable cells**: Double-click any "Default Label" cell to modify the expression
+- **Real-time configuration**: Changes are immediately applied to newly created elements
+- **Persistent settings**: Your configurations are automatically saved
+
+In the example above, you can see various label patterns in use:
+- Some elements use `<<${specialization}>>\n${name}` to show specialization above the name
+- Business Actor simply uses `${name}` to display only the element name
+- The table makes it easy to maintain consistency across your ArchiMate models
+
 ### Supported Label Expression Variables
 
 The plugin supports all of Archi's label expression variables:
@@ -95,6 +112,28 @@ ${name} - ${property:Status}
 2. When you drag a BusinessActor onto a diagram, the plugin detects the creation
 3. The plugin automatically sets the element's label expression to `${name}`
 4. The element immediately displays according to your configured expression
+
+### Bulk Update Feature
+
+**New in v1.0:** The plugin can update ALL existing elements when you change configurations!
+
+**Scenario:** You have 50 Application Components currently showing just `${name}`, but want to display `<<${specialization}>>\n${name}` instead.
+
+**Solution:**
+1. Open **Tools → Manage Default Labels**
+2. Change the Application Component label to `<<${specialization}>>\n${name}`
+3. Click **OK**
+4. Plugin detects the change and asks: *"Update all existing elements?"*
+5. Click **Yes**
+6. All 50 components instantly updated across ALL open models! ✨
+
+**Benefits:**
+- 🎯 **Instant Consistency**: Update hundreds of elements in seconds
+- 🔄 **Multi-Model Support**: Updates all models open in workspace
+- 🛡️ **Safe**: Always asks for confirmation before making changes
+- 📊 **Detailed Feedback**: Shows how many elements were updated
+
+See [docs/BULK_UPDATE_FEATURE.md](docs/BULK_UPDATE_FEATURE.md) for complete documentation.
 
 ## 🏗️ Supported ArchiMate Elements
 
@@ -239,9 +278,11 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 5. Test with `bash scripts/build_final.sh`
 6. Submit a pull request
 
+See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed contribution guidelines.
+
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [docs/LICENSE](docs/LICENSE) file for details.
 
 ## 👤 Author
 
@@ -254,22 +295,33 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📚 Additional Documentation
 
-- [TRANSLATION_SUMMARY.md](TRANSLATION_SUMMARY.md) - Translation details
-- [DISTRIBUTION_GUIDE.md](DISTRIBUTION_GUIDE.md) - Distribution instructions
-- [MENU_FIX.md](MENU_FIX.md) - Menu integration technical details
-- [README_EN.md](README_EN.md) - Extended English documentation
+### User Guides
+- [docs/QUICK_START.md](docs/QUICK_START.md) - Get started in 5 minutes
+- [docs/INSTALL.md](docs/INSTALL.md) - Complete installation guide
+- [docs/BULK_UPDATE_FEATURE.md](docs/BULK_UPDATE_FEATURE.md) - Bulk update documentation
+
+### Developer Guides
+- [docs/BUILD_GUIDE.md](docs/BUILD_GUIDE.md) - Build from source instructions
+- [docs/FIND_DEPENDENCIES.md](docs/FIND_DEPENDENCIES.md) - Locating Archi dependencies
+- [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) - Contribution guidelines
+- [docs/DISTRIBUTION_GUIDE.md](docs/DISTRIBUTION_GUIDE.md) - Distribution instructions
+
+### Project Documentation
+- [docs/CHANGELOG.md](docs/CHANGELOG.md) - Version history and changelog
+- [docs/PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) - Complete project overview
+- [docs/LICENSE](docs/LICENSE) - MIT License
+- [docs/EXPORT_INSTRUCTIONS.txt](docs/EXPORT_INSTRUCTIONS.txt) - Eclipse export procedures
 
 ## 🔄 Version History
 
 ### Version 1.0.0
-- Initial release
-- Support for all 73 ArchiMate 3.x element types
-- Automatic label application on element creation
-- User-friendly configuration dialog
-- Persistent settings
-- Full English internationalization
-- Integration with Tools menu
-
+- ✨ Initial release
+- ✅ Support for all 73 ArchiMate 3.x element types
+- ✅ Automatic label application on element creation
+- ✅ **Bulk update feature** for existing elements
+- ✅ User-friendly configuration dialog with inline editing
+- ✅ Persistent settings with preferences API
+- ✅ Integration with Tools menu
+- ✅ Multi-model workspace support
 ---
-
 **Made with ❤️ for the Archi community**
