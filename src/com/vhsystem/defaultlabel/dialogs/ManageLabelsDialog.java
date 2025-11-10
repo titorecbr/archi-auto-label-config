@@ -169,6 +169,7 @@ public class ManageLabelsDialog extends Dialog {
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IApplicationInteraction.class);
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IApplicationProcess.class);
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IApplicationService.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IApplicationEvent.class);
         
         // Business Layer
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IBusinessActor.class);
@@ -196,6 +197,7 @@ public class ManageLabelsDialog extends Dialog {
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ITechnologyObject.class);
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ITechnologyProcess.class);
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ITechnologyService.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ISystemSoftware.class);
         
         // Physical Layer
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ILocation.class);
@@ -207,9 +209,37 @@ public class ManageLabelsDialog extends Dialog {
         // Data Layer
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IDataObject.class);
         
+        // Strategy Layer
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IResource.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ICapability.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.ICourseOfAction.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IValueStream.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IProduct.class);
+        
+        // Motivation Layer
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IStakeholder.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IDriver.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IAssessment.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IGoal.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IOutcome.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IPrinciple.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IRequirement.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IConstraint.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IMeaning.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IValue.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IRepresentation.class);
+        
+        // Implementation & Migration Layer
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IWorkPackage.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IDeliverable.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IImplementationEvent.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IPlateau.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IGap.class);
+        
         // Other Elements
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IJunction.class);
         classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IGrouping.class);
+        classes.add((Class<? extends IArchimateElement>) com.archimatetool.model.IContract.class);
         
         return classes;
     }

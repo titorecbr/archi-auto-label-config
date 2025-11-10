@@ -5,7 +5,9 @@
 
 set -e
 
-PROJECT_DIR="/home/victor/Projetos/VH System/Archi Plugin"
+# Detecta o diretório do projeto automaticamente
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_DIR="$( cd "$SCRIPT_DIR/.." && pwd )"
 EXPORT_DIR="$PROJECT_DIR/final-plugin"
 PLUGIN_NAME="com.vhsystem.defaultlabel_1.0.0.qualifier"
 PLUGIN_OUTPUT="$EXPORT_DIR/$PLUGIN_NAME"
