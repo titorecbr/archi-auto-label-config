@@ -29,16 +29,13 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="com.vhsystem.defaultlabel.menu"
-               label="Default Labels">
-            <command
-                  commandId="com.vhsystem.defaultlabel.commands.manageLabels"
-                  id="com.vhsystem.defaultlabel.menu.manageLabels"
-                  label="Manage Default Labels">
-            </command>
-         </menu>
+            locationURI="menu:tools?after=additions">
+         <command
+               commandId="com.vhsystem.defaultlabel.commands.manageLabels"
+               id="com.vhsystem.defaultlabel.menu.manageLabels"
+               label="Manage Default Labels"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
    

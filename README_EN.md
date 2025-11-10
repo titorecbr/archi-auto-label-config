@@ -18,7 +18,7 @@ An Archi plugin that automatically applies configurable label expressions to Arc
    - **Linux/Mac**: `~/.archi/dropins/`
    - **Windows**: `%USERPROFILE%\.archi\dropins\`
 3. Restart Archi
-4. Verify the "Default Labels" menu appears in the menu bar
+4. Verify "Manage Default Labels" appears in the Tools menu
 
 ### Manual Build
 
@@ -34,7 +34,7 @@ bash scripts/build_final.sh /path/to/archi
 ### Configuring Default Labels
 
 1. Open Archi
-2. Go to **Default Labels → Manage Default Labels** menu
+2. Go to **Tools → Manage Default Labels** menu
 3. A dialog will open showing all ArchiMate element types
 4. Double-click on any "Default Label" cell to edit
 5. Enter your label expression (supports variables like `${name}`, `${specialization}`)
@@ -100,11 +100,12 @@ The plugin comes pre-configured with sensible defaults for all 73 ArchiMate elem
 
 - Check if plugin is in `~/.archi/dropins/`
 - Verify Archi was completely restarted
+- Look for "Manage Default Labels" in the Tools menu
 - Check Archi logs for errors
 
 ### Labels not applying automatically
 
-- Open **Default Labels → Manage Default Labels** to trigger initialization
+- Open **Tools → Manage Default Labels** to trigger initialization
 - Verify default labels are configured for the element types you're using
 - Check console output for `[LabelManager]` messages
 
