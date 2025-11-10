@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Default Label Plugin
+Bundle-SymbolicName: com.vhsystem.defaultlabel;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.vhsystem.defaultlabel.DefaultLabelPlugin
+Require-Bundle: com.archimatetool.model,
+ com.archimatetool.editor,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.jface
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: com.vhsystem.defaultlabel
+

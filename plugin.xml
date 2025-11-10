@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.archimatetool.editor.archiPlugin">
+      <archiPlugin
+            class="com.vhsystem.defaultlabel.DefaultLabelPlugin"
+            id="com.vhsystem.defaultlabel.plugin"
+            name="Default Label Plugin">
+      </archiPlugin>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.vhsystem.defaultlabel.commands.manageLabels"
+            name="Gerenciar Labels Padrão">
+      </command>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.vhsystem.defaultlabel.handlers.ManageLabelsHandler"
+            commandId="com.vhsystem.defaultlabel.commands.manageLabels">
+      </handler>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="com.vhsystem.defaultlabel.menu"
+               label="Labels Padrão">
+            <command
+                  commandId="com.vhsystem.defaultlabel.commands.manageLabels"
+                  id="com.vhsystem.defaultlabel.menu.manageLabels"
+                  label="Gerenciar Labels Padrão">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>
+

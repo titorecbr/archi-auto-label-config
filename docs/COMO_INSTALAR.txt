@@ -1,0 +1,107 @@
+================================================================================
+COMO INSTALAR O PLUGIN NO ARCHI
+================================================================================
+
+SITUAÇÃO ATUAL:
+---------------
+A estrutura do plugin foi preparada em:
+/home/victor/Projetos/VH System/Archi Plugin/export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+
+PORÉM, as classes Java (.class) ainda NÃO foram compiladas porque precisamos
+do Eclipse IDE com as dependências do Archi.
+
+DUAS OPÇÕES PARA CONTINUAR:
+============================
+
+OPÇÃO 1: COMPILAR NO ECLIPSE (RECOMENDADO - 15 minutos)
+--------------------------------------------------------
+
+1. ABRIR O ECLIPSE:
+   - Abra o Eclipse IDE (se não tiver, baixe: https://www.eclipse.org/downloads/)
+   - Escolha "Eclipse IDE for RCP and RAP Developers"
+
+2. IMPORTAR O PROJETO:
+   File → Import → Existing Projects into Workspace
+   → Navegue até: /home/victor/Projetos/VH System/Archi Plugin
+   → Marque o projeto
+   → Finish
+
+3. CONFIGURAR DEPENDÊNCIAS:
+   - Clique direito no projeto → Properties
+   - Java Build Path → Libraries → Add External JARs
+   - Você precisa encontrar os JARs do Archi. Procure em:
+     * ~/.archi/plugins/
+     * /opt/archi/plugins/
+     * Onde você instalou o Archi
+   - Adicione: com.archimatetool.model_*.jar e com.archimatetool.editor_*.jar
+
+4. COMPILAR:
+   Project → Clean → Build
+   → Verifique se não há erros
+
+5. EXPORTAR:
+   File → Export → Plug-in Development → Deployable plug-ins and fragments
+   → Selecione: com.vhsystem.defaultlabel
+   → Escolha: Directory
+   → Escolha uma pasta (ex: ~/archi-plugin-final)
+   → Finish
+
+6. INSTALAR:
+   - Copie a pasta exportada para: ~/.archi/plugins/
+   - Reinicie o Archi
+
+
+OPÇÃO 2: INSTALAÇÃO MANUAL (SE JÁ TEM CLASSES COMPILADAS)
+----------------------------------------------------------
+
+Se você já compilou as classes em outro lugar:
+
+1. Copie os arquivos .class para:
+   export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/com/vhsystem/defaultlabel/
+
+2. Estrutura necessária:
+   com/vhsystem/defaultlabel/
+   ├── DefaultLabelPlugin.class
+   ├── LabelManager.class
+   ├── dialogs/
+   │   └── ManageLabelsDialog.class
+   └── handlers/
+       └── ManageLabelsHandler.class
+
+3. Depois copie toda a pasta para: ~/.archi/plugins/
+
+
+LOCALIZAÇÃO DO PLUGIN EXPORTADO:
+=================================
+/home/victor/Projetos/VH System/Archi Plugin/export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+
+Esta pasta contém:
+✓ META-INF/MANIFEST.MF
+✓ plugin.xml
+✓ build.properties
+✗ Classes Java (.class) - PRECISAM SER COMPILADAS NO ECLIPSE
+
+
+ONDE INSTALAR NO ARCHI:
+========================
+Linux:   ~/.archi/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+Windows: C:\Users\<seu-usuario>\.archi\plugins\com.vhsystem.defaultlabel_1.0.0.qualifier\
+macOS:   ~/Library/Application Support/Archi/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+
+
+VERIFICAÇÃO APÓS INSTALAÇÃO:
+============================
+1. Reinicie o Archi completamente
+2. Verifique se aparece o menu "Labels Padrão" no menu principal
+3. Clique em "Labels Padrão → Gerenciar Labels Padrão"
+4. Se abrir a janela, está funcionando!
+
+
+AJUDA ADICIONAL:
+================
+- Veja QUICK_START.md para guia rápido
+- Veja EXPORT_INSTRUCTIONS.txt para instruções detalhadas
+- Veja FIND_DEPENDENCIES.md para encontrar os JARs do Archi
+
+================================================================================
+

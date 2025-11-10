@@ -1,0 +1,40 @@
+================================================================================
+LOCALIZAÇÃO DO PLUGIN EXPORTADO
+================================================================================
+
+CAMINHO COMPLETO:
+-----------------
+/home/victor/Projetos/VH System/Archi Plugin/export/plugins/com.vhsystem.defaultlabel_1.0.0.qualifier/
+
+ESTRUTURA ATUAL:
+----------------
+com.vhsystem.defaultlabel_1.0.0.qualifier/
+├── META-INF/
+│   └── MANIFEST.MF          ✓ Configurado
+├── plugin.xml               ✓ Configurado
+├── build.properties         ✓ Configurado
+└── com/
+    └── vhsystem/
+        └── defaultlabel/
+            └── (vazio - precisa compilar as classes Java)
+
+STATUS:
+-------
+✓ Arquivos de configuração: PRONTOS
+✗ Classes Java compiladas: FALTANDO (precisa Eclipse)
+
+PRÓXIMO PASSO:
+--------------
+Você precisa compilar as classes Java no Eclipse IDE.
+
+Veja: COMO_INSTALAR.txt para instruções completas.
+
+OU use o caminho acima para exportar do Eclipse:
+1. Importe o projeto no Eclipse
+2. Configure dependências do Archi
+3. Compile: Project → Clean → Build
+4. Exporte: File → Export → Deployable plug-ins
+5. Use a pasta exportada pelo Eclipse para instalar no Archi
+
+================================================================================
+
