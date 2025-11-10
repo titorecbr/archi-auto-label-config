@@ -9,7 +9,7 @@ import com.vhsystem.defaultlabel.DefaultLabelPlugin;
 import com.vhsystem.defaultlabel.dialogs.ManageLabelsDialog;
 
 /**
- * Handler para abrir o diálogo de gerenciamento de labels
+ * Handler to open the label management dialog
  */
 public class ManageLabelsHandler extends AbstractHandler {
     

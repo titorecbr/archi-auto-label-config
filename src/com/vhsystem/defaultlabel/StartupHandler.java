@@ -6,58 +6,58 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
 /**
- * Handler de startup que força a inicialização do plugin quando o Archi inicia.
- * Isso garante que o LabelManager seja carregado e os labels padrão sejam
- * reconhecidos mesmo antes de abrir a dialog de configuração.
+ * Startup handler that forces plugin initialization when Archi starts.
+ * This ensures that LabelManager is loaded and default labels are
+ * recognized even before opening the configuration dialog.
  */
 public class StartupHandler implements IStartup {
     
     @Override
     public void earlyStartup() {
         System.out.println("[DefaultLabel] ========================================");
-        System.out.println("[DefaultLabel] 🚀 StartupHandler.earlyStartup() chamado!");
-        System.out.println("[DefaultLabel] Forçando inicialização do plugin...");
+        System.out.println("[DefaultLabel] 🚀 StartupHandler.earlyStartup() called!");
+        System.out.println("[DefaultLabel] Forcing plugin initialization...");
         
         try {
-            // Tenta forçar a ativação do bundle
+            // Try to force bundle activation
             Bundle bundle = Platform.getBundle("com.vhsystem.defaultlabel");
             if (bundle != null) {
-                System.out.println("[DefaultLabel] Bundle encontrado, estado: " + getBundleStateName(bundle.getState()));
+                System.out.println("[DefaultLabel] Bundle found, state: " + getBundleStateName(bundle.getState()));
                 
-                // Se o bundle não está ativo, tenta iniciar
+                // If bundle is not active, try to start it
                 if (bundle.getState() != Bundle.ACTIVE) {
-                    System.out.println("[DefaultLabel] Iniciando bundle...");
+                    System.out.println("[DefaultLabel] Starting bundle...");
                     bundle.start();
-                    System.out.println("[DefaultLabel] ✓ Bundle iniciado!");
+                    System.out.println("[DefaultLabel] ✓ Bundle started!");
                 }
                 
-                // Aguarda um pouco para garantir que o plugin foi inicializado
+                // Wait a bit to ensure plugin was initialized
                 Thread.sleep(100);
                 
-                // Acessa o plugin para forçar sua ativação
+                // Access plugin to force its activation
                 DefaultLabelPlugin plugin = DefaultLabelPlugin.getDefault();
                 
                 if (plugin != null) {
-                    System.out.println("[DefaultLabel] ✓ Plugin inicializado com sucesso!");
+                    System.out.println("[DefaultLabel] ✓ Plugin initialized successfully!");
                     
-                    // Verifica se o LabelManager foi carregado
+                    // Check if LabelManager was loaded
                     LabelManager labelManager = plugin.getLabelManager();
                     if (labelManager != null) {
-                        System.out.println("[DefaultLabel] ✓ LabelManager carregado e pronto!");
+                        System.out.println("[DefaultLabel] ✓ LabelManager loaded and ready!");
                     } else {
-                        System.err.println("[DefaultLabel] ❌ ERRO: LabelManager é null!");
+                        System.err.println("[DefaultLabel] ❌ ERROR: LabelManager is null!");
                     }
                 } else {
-                    System.err.println("[DefaultLabel] ❌ ERRO: Plugin não foi inicializado!");
+                    System.err.println("[DefaultLabel] ❌ ERROR: Plugin was not initialized!");
                 }
             } else {
-                System.err.println("[DefaultLabel] ❌ ERRO: Bundle não encontrado!");
+                System.err.println("[DefaultLabel] ❌ ERROR: Bundle not found!");
             }
         } catch (BundleException e) {
-            System.err.println("[DefaultLabel] ❌ ERRO ao iniciar bundle: " + e.getMessage());
+            System.err.println("[DefaultLabel] ❌ ERROR starting bundle: " + e.getMessage());
             e.printStackTrace();
         } catch (InterruptedException e) {
-            System.err.println("[DefaultLabel] ❌ ERRO: Thread interrompida");
+            System.err.println("[DefaultLabel] ❌ ERROR: Thread interrupted");
         }
         
         System.out.println("[DefaultLabel] ========================================");

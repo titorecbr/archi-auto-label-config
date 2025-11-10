@@ -30,7 +30,7 @@ import com.archimatetool.model.IArchimateElement;
 import com.vhsystem.defaultlabel.LabelManager;
 
 /**
- * Dialog para gerenciar labels padrão
+ * Dialog to manage default labels
  */
 public class ManageLabelsDialog extends Dialog {
     
@@ -47,7 +47,7 @@ public class ManageLabelsDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("Gerenciar Labels Padrão");
+        newShell.setText("Manage Default Labels");
         newShell.setSize(600, 500);
     }
     
@@ -59,14 +59,14 @@ public class ManageLabelsDialog extends Dialog {
         layout.marginHeight = 10;
         container.setLayout(layout);
         
-        // Label de instrução
+        // Instruction label
         Label instructionLabel = new Label(container, SWT.WRAP);
-        instructionLabel.setText("Configure os labels padrão que serão aplicados automaticamente quando novos elementos forem criados:");
+        instructionLabel.setText("Configure default labels that will be automatically applied when new elements are created:");
         GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
         gd.widthHint = 550;
         instructionLabel.setLayoutData(gd);
         
-        // Tabela
+        // Table
         Table table = new Table(container, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
@@ -76,10 +76,10 @@ public class ManageLabelsDialog extends Dialog {
         
         viewer = new TableViewer(table);
         
-        // Coluna Tipo de Elemento
+        // Element Type Column
         TableViewerColumn typeColumn = new TableViewerColumn(viewer, SWT.NONE);
         typeColumn.getColumn().setWidth(300);
-        typeColumn.getColumn().setText("Tipo de Elemento");
+        typeColumn.getColumn().setText("Element Type");
         typeColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
@@ -88,10 +88,10 @@ public class ManageLabelsDialog extends Dialog {
             }
         });
         
-        // Coluna Label Padrão (editável)
+        // Default Label Column (editable)
         TableViewerColumn labelColumn = new TableViewerColumn(viewer, SWT.NONE);
         labelColumn.getColumn().setWidth(250);
-        labelColumn.getColumn().setText("Label Padrão");
+        labelColumn.getColumn().setText("Default Label");
         labelColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
@@ -100,7 +100,7 @@ public class ManageLabelsDialog extends Dialog {
             }
         });
         
-        // Suporte para edição
+        // Editing support
         labelColumn.setEditingSupport(new EditingSupport(viewer) {
             @Override
             protected boolean canEdit(Object element) {
@@ -128,7 +128,7 @@ public class ManageLabelsDialog extends Dialog {
             }
         });
         
-        // Carrega dados
+        // Load data
         loadEntries();
         viewer.setContentProvider(new ArrayContentProvider());
         viewer.setInput(entries);
@@ -140,7 +140,7 @@ public class ManageLabelsDialog extends Dialog {
         entries = new ArrayList<>();
         Map<Class<?>, String> allLabels = labelManager.getAllDefaultLabels();
         
-        // Obtém todas as classes de elementos ArchiMate conhecidas
+        // Get all known ArchiMate element classes
         List<Class<? extends IArchimateElement>> elementClasses = getAllElementClasses();
         
         for (Class<? extends IArchimateElement> clazz : elementClasses) {
@@ -148,7 +148,7 @@ public class ManageLabelsDialog extends Dialog {
             entries.add(new LabelEntry(clazz, label));
         }
         
-        // Ordena por nome do tipo
+        // Sort by type name
         Collections.sort(entries, new Comparator<LabelEntry>() {
             @Override
             public int compare(LabelEntry e1, LabelEntry e2) {
@@ -255,7 +255,7 @@ public class ManageLabelsDialog extends Dialog {
     }
     
     /**
-     * Classe auxiliar para representar uma entrada de label
+     * Helper class to represent a label entry
      */
     private static class LabelEntry {
         private Class<?> elementClass;

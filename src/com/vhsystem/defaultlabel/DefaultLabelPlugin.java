@@ -17,7 +17,7 @@ import com.archimatetool.model.INameable;
 import com.archimatetool.model.IArchimatePackage;
 
 /**
- * Plugin principal para gerenciar labels padrão no Archi
+ * Main plugin to manage default labels in Archi
  */
 public class DefaultLabelPlugin extends AbstractUIPlugin {
     
@@ -31,11 +31,11 @@ public class DefaultLabelPlugin extends AbstractUIPlugin {
     public DefaultLabelPlugin() {
         plugin = this;
         System.out.println("[DefaultLabel] ========================================");
-        System.out.println("[DefaultLabel] 🚀 Plugin construtor chamado!");
-        System.out.println("[DefaultLabel] Forçando inicialização do LabelManager...");
-        // Força a inicialização do LabelManager singleton
+        System.out.println("[DefaultLabel] 🚀 Plugin constructor called!");
+        System.out.println("[DefaultLabel] Forcing LabelManager initialization...");
+        // Force initialization of LabelManager singleton
         labelManager = LabelManager.getInstance();
-        System.out.println("[DefaultLabel] ✓ LabelManager inicializado!");
+        System.out.println("[DefaultLabel] ✓ LabelManager initialized!");
         System.out.println("[DefaultLabel] ========================================");
     }
     
@@ -46,20 +46,20 @@ public class DefaultLabelPlugin extends AbstractUIPlugin {
     @Override
     public void start(BundleContext context) throws Exception {
         System.out.println("[DefaultLabel] ========================================");
-        System.out.println("[DefaultLabel] 🚀 Plugin.start() chamado!");
-        System.out.println("[DefaultLabel] Iniciando plugin...");
+        System.out.println("[DefaultLabel] 🚀 Plugin.start() called!");
+        System.out.println("[DefaultLabel] Starting plugin...");
         
         super.start(context);
         
-        // O LabelManager já foi inicializado no construtor como singleton
-        // e já registrou seu próprio listener
-        System.out.println("[DefaultLabel] ✓ Plugin inicializado com sucesso!");
+        // LabelManager was already initialized in constructor as singleton
+        // and has already registered its own listener
+        System.out.println("[DefaultLabel] ✓ Plugin initialized successfully!");
         System.out.println("[DefaultLabel] ========================================");
     }
     
     @Override
     public void stop(BundleContext context) throws Exception {
-        // O listener agora está registrado no LabelManager
+        // Listener is now registered in LabelManager
         super.stop(context);
     }
     

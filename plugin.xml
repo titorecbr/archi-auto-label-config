@@ -14,7 +14,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="com.vhsystem.defaultlabel.commands.manageLabels"
-            name="Gerenciar Labels Padrão">
+            name="Manage Default Labels">
       </command>
    </extension>
    
@@ -32,17 +32,17 @@
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
                id="com.vhsystem.defaultlabel.menu"
-               label="Labels Padrão">
+               label="Default Labels">
             <command
                   commandId="com.vhsystem.defaultlabel.commands.manageLabels"
                   id="com.vhsystem.defaultlabel.menu.manageLabels"
-                  label="Gerenciar Labels Padrão">
+                  label="Manage Default Labels">
             </command>
          </menu>
       </menuContribution>
    </extension>
    
-   <!-- Força inicialização do plugin na startup do Archi -->
+   <!-- Force plugin initialization at Archi startup -->
    <extension
          point="org.eclipse.ui.startup">
       <startup

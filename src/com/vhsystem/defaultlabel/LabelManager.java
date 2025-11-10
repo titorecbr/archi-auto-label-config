@@ -91,7 +91,7 @@ import com.archimatetool.model.ISystemSoftware;
 import com.archimatetool.model.IApplicationEvent;
 
 /**
- * Gerenciador de labels padrão - Singleton com auto-inicialização
+ * Default Label Manager - Self-initializing Singleton
  */
 public class LabelManager {
     
@@ -102,72 +102,72 @@ public class LabelManager {
     private File configFile;
     private boolean initialized = false;
     
-    // Inicialização estática - garante que seja carregado assim que a classe for referenciada
+    // Static initialization - ensures loading as soon as the class is referenced
     static {
         System.out.println("[LabelManager] ========================================");
-        System.out.println("[LabelManager] 🚀 Classe LabelManager carregada pela JVM!");
-        System.out.println("[LabelManager] Inicializando singleton...");
+        System.out.println("[LabelManager] 🚀 LabelManager class loaded by JVM!");
+        System.out.println("[LabelManager] Initializing singleton...");
         instance = new LabelManager();
-        System.out.println("[LabelManager] ✓ Singleton criado!");
+        System.out.println("[LabelManager] ✓ Singleton created!");
         System.out.println("[LabelManager] ========================================");
     }
     
     /**
-     * Obtém a instância singleton
+     * Gets the singleton instance
      */
     public static LabelManager getInstance() {
         return instance;
     }
     
     private LabelManager() {
-        System.out.println("[LabelManager] Construtor privado chamado");
+        System.out.println("[LabelManager] Private constructor called");
         defaultLabels = new HashMap<>();
         loadConfiguration();
         registerModelListener();
     }
     
     /**
-     * Obtém o label padrão para um tipo de elemento
-     * Busca pela classe e por todas as interfaces que ela implementa
+     * Gets the default label for an element type
+     * Searches by class and all interfaces it implements
      */
     public String getDefaultLabel(Class<?> elementClass) {
-        System.out.println("[LabelManager] Buscando label para: " + elementClass.getName());
-        System.out.println("[LabelManager] Total de labels configurados: " + defaultLabels.size());
+        System.out.println("[LabelManager] Searching label for: " + elementClass.getName());
+        System.out.println("[LabelManager] Total configured labels: " + defaultLabels.size());
         
-        // Primeiro tenta pela classe direta
+        // First try by direct class
         String label = defaultLabels.get(elementClass);
         if (label != null) {
-            System.out.println("[LabelManager] ✓ Label encontrado pela classe direta: '" + label + "'");
+            System.out.println("[LabelManager] ✓ Label found by direct class: '" + label + "'");
             return label;
         }
         
-        // Se não encontrou, busca pelas interfaces que a classe implementa
-        System.out.println("[LabelManager] Buscando pelas interfaces...");
+        // If not found, search by interfaces the class implements
+        System.out.println("[LabelManager] Searching by interfaces...");
         for (Class<?> interfaceClass : elementClass.getInterfaces()) {
-            System.out.println("[LabelManager]   Testando: " + interfaceClass.getName());
+            System.out.println("[LabelManager]   Testing: " + interfaceClass.getName());
             label = defaultLabels.get(interfaceClass);
             if (label != null) {
-                System.out.println("[LabelManager] ✓ Label encontrado pela interface: " + interfaceClass.getSimpleName() + " = '" + label + "'");
+                System.out.println("[LabelManager] ✓ Label found by interface: " + interfaceClass.getSimpleName() + " = '" + label + "'");
                 return label;
             }
         }
         
-        // Busca nas superclasses também
+        // Also search in superclasses
         Class<?> superClass = elementClass.getSuperclass();
         if (superClass != null && superClass != Object.class) {
-            System.out.println("[LabelManager] Buscando na superclasse: " + superClass.getName());
+            System.out.println("[LabelManager] Searching in superclass: " + superClass.getName());
             label = getDefaultLabel(superClass);
             if (label != null) {
                 return label;
             }
         }
         
-        System.out.println("[LabelManager] ❌ Nenhum label encontrado para esta classe");
+        System.out.println("[LabelManager] ❌ No label found for this class");
         return null;
     }
     
     /**
-     * Define o label padrão para um tipo de elemento
+     * Sets the default label for an element type
      */
     public void setDefaultLabel(Class<?> elementClass, String label) {
         if (label == null || label.trim().isEmpty()) {
@@ -179,22 +179,22 @@ public class LabelManager {
     }
     
     /**
-     * Obtém todos os labels padrão
+     * Gets all default labels
      */
     public Map<Class<?>, String> getAllDefaultLabels() {
         return new HashMap<>(defaultLabels);
     }
     
     /**
-     * Carrega configuração do arquivo
+     * Loads configuration from file
      */
     private void loadConfiguration() {
         configFile = getConfigFile();
         
-        // Sempre inicializa com todos os defaults primeiro
+        // Always initialize with all defaults first
         initializeDefaultLabels();
         
-        // Se o arquivo existe, sobrescreve com as configurações personalizadas do usuário
+        // If file exists, override with user's custom settings
         if (configFile.exists()) {
             Properties props = new Properties();
             try (FileInputStream fis = new FileInputStream(configFile)) {
@@ -206,7 +206,7 @@ public class LabelManager {
                         String label = props.getProperty(key);
                         defaultLabels.put(clazz, label);
                     } catch (ClassNotFoundException e) {
-                        // Ignora classes que não existem mais
+                        // Ignore classes that no longer exist
                     }
                 }
             } catch (IOException e) {
@@ -214,12 +214,12 @@ public class LabelManager {
             }
         }
         
-        // Sempre salva para garantir que novos elementos sejam persistidos
+        // Always save to ensure new elements are persisted
         saveConfiguration();
     }
     
     /**
-     * Salva configuração no arquivo
+     * Saves configuration to file
      */
     private void saveConfiguration() {
         Properties props = new Properties();
@@ -236,12 +236,12 @@ public class LabelManager {
     }
     
     /**
-     * Inicializa labels padrão com valores sugeridos
+     * Initializes default labels with suggested values
      */
     private void initializeDefaultLabels() {
-        System.out.println("[LabelManager] Inicializando labels padrão...");
+        System.out.println("[LabelManager] Initializing default labels...");
         
-        // Application Layer (8 elementos)
+        // Application Layer (8 elements)
         defaultLabels.put(IApplicationComponent.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IApplicationCollaboration.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IApplicationInterface.class, "<<${specialization}>>\n${name}");
@@ -334,11 +334,11 @@ public class LabelManager {
         defaultLabels.put(IPlateau.class, "<<${specialization}>>\n${name}");
         defaultLabels.put(IGap.class, "<<${specialization}>>\n${name}");
         
-        System.out.println("[LabelManager] ✓ Labels inicializados: " + defaultLabels.size() + " tipos configurados");
+        System.out.println("[LabelManager] ✓ Labels initialized: " + defaultLabels.size() + " types configured");
     }
     
     /**
-     * Obtém o arquivo de configuração
+     * Gets the configuration file
      */
     private File getConfigFile() {
         org.eclipse.core.runtime.IPath stateLocation = Platform.getStateLocation(
@@ -347,30 +347,30 @@ public class LabelManager {
     }
     
     /**
-     * Obtém o nome amigável de uma classe
+     * Gets the friendly class name
      */
     public static String getFriendlyClassName(Class<?> clazz) {
         String simpleName = clazz.getSimpleName();
-        // Remove o prefixo "I" se existir
+        // Remove "I" prefix if exists
         if (simpleName.startsWith("I") && simpleName.length() > 1) {
             simpleName = simpleName.substring(1);
         }
-        // Adiciona espaços antes de letras maiúsculas
+        // Add spaces before capital letters
         return simpleName.replaceAll("([A-Z])", " $1").trim();
     }
     
     /**
-     * Registra listener para eventos do modelo
-     * Copiado do DefaultLabelPlugin para funcionar sem depender do plugin ser ativado
+     * Registers model event listener
+     * Copied from DefaultLabelPlugin to work without depending on plugin activation
      */
     private void registerModelListener() {
-        System.out.println("[LabelManager] Registrando listener de eventos do modelo...");
+        System.out.println("[LabelManager] Registering model event listener...");
         
         try {
             java.beans.PropertyChangeListener modelListener = new java.beans.PropertyChangeListener() {
                 @Override
                 public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                    // Escuta eventos ECORE (criação/modificação de objetos)
+                    // Listen to ECORE events (object creation/modification)
                     if (com.archimatetool.editor.model.IEditorModelManager.PROPERTY_ECORE_EVENT.equals(evt.getPropertyName())) {
                         Object newValue = evt.getNewValue();
                         if (newValue instanceof org.eclipse.emf.common.notify.Notification) {
@@ -381,46 +381,46 @@ public class LabelManager {
             };
             
             com.archimatetool.editor.model.IEditorModelManager.INSTANCE.addPropertyChangeListener(modelListener);
-            System.out.println("[LabelManager] ✓ Listener registrado com sucesso!");
+            System.out.println("[LabelManager] ✓ Listener registered successfully!");
             initialized = true;
         } catch (Exception e) {
-            System.err.println("[LabelManager] ❌ ERRO ao registrar listener: " + e.getMessage());
+            System.err.println("[LabelManager] ❌ ERROR registering listener: " + e.getMessage());
             e.printStackTrace();
         }
     }
     
     /**
-     * Processa notificações de mudanças no modelo
-     * Copiado do DefaultLabelPlugin
+     * Processes model change notifications
+     * Copied from DefaultLabelPlugin
      */
     private void handleNotification(org.eclipse.emf.common.notify.Notification notification) {
         int eventType = notification.getEventType();
         Object notifier = notification.getNotifier();
         Object newValue = notification.getNewValue();
         
-        // Verifica se o newValue é um DiagramModelArchimateObject
+        // Check if newValue is a DiagramModelArchimateObject
         if (newValue instanceof com.archimatetool.model.IDiagramModelArchimateObject) {
-            System.out.println("[LabelManager] ✓ Objeto de diagrama detectado via newValue!");
+            System.out.println("[LabelManager] ✓ Diagram object detected via newValue!");
             com.archimatetool.model.IDiagramModelArchimateObject diagramObject = 
                 (com.archimatetool.model.IDiagramModelArchimateObject) newValue;
             applyDefaultLabelToDiagramObject(diagramObject);
         }
-        // Também verifica o notifier
+        // Also check the notifier
         else if (notifier instanceof com.archimatetool.model.IDiagramModelArchimateObject) {
             com.archimatetool.model.IDiagramModelArchimateObject diagramObject = 
                 (com.archimatetool.model.IDiagramModelArchimateObject) notifier;
             
-            // Verifica se é um evento de SET no elemento ArchiMate
+            // Check if it's a SET event on ArchiMate element
             if (eventType == org.eclipse.emf.common.notify.Notification.SET && 
                 newValue instanceof com.archimatetool.model.IArchimateElement) {
-                System.out.println("[LabelManager] ✓ Objeto de diagrama detectado via notifier (SET element)!");
+                System.out.println("[LabelManager] ✓ Diagram object detected via notifier (SET element)!");
                 applyDefaultLabelToDiagramObject(diagramObject);
             }
         }
     }
     
     /**
-     * Aplica label padrão no objeto do diagrama
+     * Applies default label to diagram object
      */
     private void applyDefaultLabelToDiagramObject(final com.archimatetool.model.IDiagramModelArchimateObject diagramObject) {
         if (diagramObject == null) {
@@ -429,7 +429,7 @@ public class LabelManager {
         
         com.archimatetool.model.IArchimateElement element = diagramObject.getArchimateElement();
         if (element == null) {
-            System.out.println("[LabelManager] Objeto de diagrama sem elemento associado!");
+            System.out.println("[LabelManager] Diagram object without associated element!");
             return;
         }
         
@@ -439,9 +439,9 @@ public class LabelManager {
             return;
         }
         
-        System.out.println("[LabelManager] ✓ Aplicando label: '" + defaultLabel + "'");
+        System.out.println("[LabelManager] ✓ Applying label: '" + defaultLabel + "'");
         
-        // Aplica o label na thread do SWT
+        // Apply label on SWT thread
         org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getDefault();
         if (display != null && !display.isDisposed()) {
             display.asyncExec(new Runnable() {
@@ -452,10 +452,10 @@ public class LabelManager {
                             com.archimatetool.model.IFeatures featuresObject = 
                                 (com.archimatetool.model.IFeatures) diagramObject;
                             featuresObject.getFeatures().putString("labelExpression", defaultLabel);
-                            System.out.println("[LabelManager] ✅ Label aplicado!");
+                            System.out.println("[LabelManager] ✅ Label applied successfully!");
                         }
                     } catch (Exception e) {
-                        System.err.println("[LabelManager] ❌ ERRO ao aplicar label: " + e.getMessage());
+                        System.err.println("[LabelManager] ❌ ERROR applying label: " + e.getMessage());
                     }
                 }
             });
