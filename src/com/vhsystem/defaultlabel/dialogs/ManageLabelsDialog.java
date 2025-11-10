@@ -133,7 +133,7 @@ public class ManageLabelsDialog extends Dialog {
                 LabelEntry entry = (LabelEntry) element;
                 String newLabel = value.toString().trim();
                 entry.setLabel(newLabel.isEmpty() ? null : newLabel);
-                labelManager.setDefaultLabel(entry.getElementClass(), entry.getLabel());
+                // Don't save to labelManager yet - wait for OK confirmation
                 viewer.update(element, null);
             }
         });
@@ -277,11 +277,19 @@ public class ManageLabelsDialog extends Dialog {
             );
             
             if (confirm) {
+                // User confirmed: save changes and update elements
+                saveChangesToLabelManager();
                 updateAllElementsInModel();
+                super.okPressed();
+            } else {
+                // User cancelled: revert to original values
+                revertChanges();
+                super.okPressed();
             }
+        } else {
+            // No changes: just close
+            super.okPressed();
         }
-        
-        super.okPressed();
     }
     
     /**
@@ -301,6 +309,31 @@ public class ManageLabelsDialog extends Dialog {
             }
         }
         return false;
+    }
+    
+    /**
+     * Saves all current changes to the LabelManager
+     */
+    private void saveChangesToLabelManager() {
+        System.out.println("[ManageLabelsDialog] Saving changes to LabelManager...");
+        for (LabelEntry entry : entries) {
+            labelManager.setDefaultLabel(entry.getElementClass(), entry.getLabel());
+        }
+        System.out.println("[ManageLabelsDialog] ✓ Changes saved successfully!");
+    }
+    
+    /**
+     * Reverts all changes back to original values
+     */
+    private void revertChanges() {
+        System.out.println("[ManageLabelsDialog] Reverting changes to original values...");
+        for (LabelEntry entry : entries) {
+            String originalLabel = originalLabels.get(entry.getElementClass());
+            entry.setLabel(originalLabel);
+            // Also revert in viewer to show the change
+            viewer.update(entry, null);
+        }
+        System.out.println("[ManageLabelsDialog] ✓ Changes reverted successfully!");
     }
     
     /**

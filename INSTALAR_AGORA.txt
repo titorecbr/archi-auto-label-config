@@ -1,0 +1,122 @@
+════════════════════════════════════════════════════════════════════════
+                 🎯 INSTALAR PLUGIN VIA INTERFACE GRÁFICA
+════════════════════════════════════════════════════════════════════════
+
+✅ PREPARADO E PRONTO!
+
+✓ Plugin removido da instalação manual
+✓ Arquivo .archiplugin criado (43 KB)
+✓ Com a correção do bug aplicada
+
+════════════════════════════════════════════════════════════════════════
+📦 ARQUIVO PRONTO PARA INSTALAÇÃO
+════════════════════════════════════════════════════════════════════════
+
+Arquivo: com.vhsystem.defaultlabel_1.0.0.qualifier.archiplugin
+Tamanho: 43 KB (23 arquivos incluídos)
+
+Localização:
+/home/victor/Projetos/VH System/archi-auto-label-config/
+
+════════════════════════════════════════════════════════════════════════
+🚀 PASSO A PASSO - INSTALAÇÃO VIA GUI
+════════════════════════════════════════════════════════════════════════
+
+1️⃣ ABRIR O ARCHI
+   • Certifique-se de que o Archi está aberto
+
+2️⃣ ACESSAR GERENCIADOR DE PLUGINS
+   • No menu: Help → Manage Plug-ins...
+
+3️⃣ INSTALAR PLUGIN
+   • Clique em: "Install New..." ou "Instalar Novo..."
+   • Navegue até:
+     /home/victor/Projetos/VH System/archi-auto-label-config/
+   • Selecione:
+     com.vhsystem.defaultlabel_1.0.0.qualifier.archiplugin
+   • Clique em "Open" / "Abrir"
+
+4️⃣ CONFIRMAR
+   • Clique em "OK" ou "Install"
+
+5️⃣ REINICIAR
+   • Clique em "Restart Now" / "Reiniciar Agora"
+   • O Archi irá reiniciar automaticamente
+
+════════════════════════════════════════════════════════════════════════
+✅ VERIFICAR INSTALAÇÃO
+════════════════════════════════════════════════════════════════════════
+
+Após reiniciar:
+
+OPÇÃO 1 - Via Menu:
+   • Verifique se existe: Tools → Manage Default Labels
+
+OPÇÃO 2 - Via Lista:
+   • Help → About Archi → Installation Details → Plug-ins
+   • Procure por: com.vhsystem.defaultlabel
+
+════════════════════════════════════════════════════════════════════════
+🧪 TESTAR A CORREÇÃO DO BUG
+════════════════════════════════════════════════════════════════════════
+
+1. Tools → Manage Default Labels
+2. Anote o valor atual de um elemento
+3. Altere o valor para algo diferente
+4. Clique OK
+5. Quando perguntar, clique "No"
+6. ✅ Abra novamente o diálogo
+7. ✅ O valor deve ter voltado ao original! (BUG CORRIGIDO)
+
+════════════════════════════════════════════════════════════════════════
+📂 CONTEÚDO DO ARQUIVO .archiplugin
+════════════════════════════════════════════════════════════════════════
+
+O arquivo contém:
+  • 1 arquivo JAR principal (21 KB)
+  • 13 arquivos .class compilados
+  • ManageLabelsDialog.class ⭐ (com correção do bug)
+  • META-INF/MANIFEST.MF
+  • plugin.xml
+  • build.properties
+
+Total: 23 arquivos (43 KB)
+
+════════════════════════════════════════════════════════════════════════
+🔧 SE ALGO DER ERRADO
+════════════════════════════════════════════════════════════════════════
+
+Problema: Plugin não aparece no menu Tools
+Solução: Verifique em Help → About Archi → Installation Details
+         Se não aparecer, tente reinstalar
+
+Problema: Erro ao instalar
+Solução: 1. Feche o Archi completamente
+         2. Remova plugins antigos manualmente
+         3. Abra o Archi novamente
+         4. Reinstale via GUI
+
+Problema: Arquivo não é reconhecido
+Solução: Verifique se o arquivo não está corrompido:
+         unzip -t com.vhsystem.defaultlabel_1.0.0.qualifier.archiplugin
+
+════════════════════════════════════════════════════════════════════════
+📖 MAIS INFORMAÇÕES
+════════════════════════════════════════════════════════════════════════
+
+Guia completo: INSTALAR_VIA_GUI.md
+Detalhes da correção: BUG_CORRIGIDO_PRONTO.md
+Resumo geral: RESUMO_FINAL.md
+
+════════════════════════════════════════════════════════════════════════
+🎉 TUDO PRONTO!
+════════════════════════════════════════════════════════════════════════
+
+Agora é só instalar via interface gráfica do Archi:
+
+Help → Manage Plug-ins... → Install New...
+
+Boa instalação! 🚀
+
+════════════════════════════════════════════════════════════════════════
+
